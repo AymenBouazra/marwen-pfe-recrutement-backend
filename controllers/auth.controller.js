@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
             if (user.confirmed) {
                 const validPassword = bcrypt.compareSync(password, user.password)
                 if (validPassword) {
-                    const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
+                    const token = await jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
                     res.send({ token, message: 'Welcome to dashboard ' + user.nom + ' ' + user.prenom });
                 }
                 else {
@@ -206,3 +206,13 @@ exports.resetPassword = async (req, res) => {
     }
 }
 
+
+
+exports.logout = async (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err)
+        }
+        res.json({ message: "Disconnected successfully." })
+    });
+};
