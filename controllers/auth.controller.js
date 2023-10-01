@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
                 const validPassword = bcrypt.compareSync(password, user.password)
                 if (validPassword) {
                     const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
-                    res.send({ token, message: 'Welcome to dashboard ' + user.firstName });
+                    res.send({ token, message: 'Welcome to dashboard ' + user.nom + ' ' + user.prenom });
                 }
                 else {
                     res.status(400).json({ message: 'Email or password incorrect!' });
