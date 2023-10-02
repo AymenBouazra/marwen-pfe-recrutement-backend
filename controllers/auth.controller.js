@@ -49,13 +49,17 @@ exports.login = async (req, res) => {
         const user = await Auth.findOne({ email });
         if (user) {
             if (user.confirmed) {
-                const validPassword = bcrypt.compareSync(password, user.password)
-                if (validPassword) {
-                    const token = await jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
-                    res.send({ token, message: 'Welcome to dashboard ' + user.nom + ' ' + user.prenom });
-                }
-                else {
-                    res.status(400).json({ message: 'Email or password incorrect!' });
+                if (!user.noPassword) {
+                    const validPassword = bcrypt.compareSync(password, user.password)
+                    if (validPassword) {
+                        const token = await jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
+                        res.send({ token, message: 'Welcome to dashboard ' + user.nom + ' ' + user.prenom });
+                    }
+                    else {
+                        res.status(400).json({ message: 'Email or password incorrect!' });
+                    }
+                } else {
+                    res.status(401).json({ message: 'Create your password!' });
                 }
             } else {
                 res.status(400).json({ message: 'Please check your mailbox to verify your account!' });
@@ -65,6 +69,22 @@ exports.login = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: error.message || 'Error server' })
+    }
+}
+
+exports.newCandidatPasswordCreation = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const user = await Auth.findOne({ email: req.params.email });
+        if (user) {
+            const hash = await bcrypt.hash(password, 10);
+            await Auth.findByIdAndUpdate(user._id, { password: hash, noPassword: false }, { new: true });
+            res.send({ message: 'Password has been set!' })
+        } else {
+            res.status(400).json({ message: 'Email doesn\'t exist!' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message || 'Internal server error!' })
     }
 }
 

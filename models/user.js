@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
     competence: String,
     role: String,
     confirmationCode: String,
-    confirmed: { type: Boolean, default: false }
+    confirmed: { type: Boolean, default: false },
+    noPassword: Boolean
 },
     {
         timestamps: true, versionKey: false
