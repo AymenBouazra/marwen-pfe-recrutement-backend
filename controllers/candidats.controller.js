@@ -40,3 +40,14 @@ exports.getAllCandidats = async (req, res) => {
         res.status(500).json({ message: error.message || 'Server error!' })
     }
 }
+
+
+
+exports.deleteOneCandidat = async (req, res) => {
+    try {
+        await User.findByIdAndRemove(req.params.id);
+        res.json({ message: 'Deleted successfully' })
+    } catch (error) {
+        res.status(500).json({ message: error.message || 'Server error!' })
+    }
+}
