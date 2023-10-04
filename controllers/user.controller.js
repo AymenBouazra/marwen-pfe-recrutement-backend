@@ -48,14 +48,6 @@ exports.updateUserById = async (req, res) => {
             const hash = bcrypt.hashSync(req.body.password, salt)
             req.body.password = hash
         }
-        if (req.file) {
-            req.body.photo = 'http://localhost:4000/uploads/' + req.file.filename
-            const fileName = path.basename(user.photo);
-            const filePath = path.resolve('./uploads', fileName);
-            if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-            }
-        }
         await User.findByIdAndUpdate(req.params.id, req.body);
         res.json({ message: 'User updated successfully' })
     } catch (error) {
