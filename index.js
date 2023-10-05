@@ -9,18 +9,15 @@ const port = 4000
 const path = require('path');
 
 const corsOptions = {
-    origin: 'https://marwen-pfe-recrutement-dashboard.vercel.app',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Authorization,Content-Type',
-    credentials: true,
-    maxAge: 3600,
 };
 
-app.use(cors(corsOptions));
 require('dotenv').config()
 require('./passport/bearer')
 require('./common/init_scripts/int_script')
 require('./database/connect')
+app.use(cors(corsOptions));
 app.use(morgan('dev'))
 app.use(express.urlencoded({ limit: '100mb', extended: false }))
 app.use(express.json({ limit: '100mb' }))
