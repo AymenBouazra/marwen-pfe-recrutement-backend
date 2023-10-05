@@ -11,16 +11,10 @@ const path = require('path');
 const allowedOrigins = ['https://marwen-pfe-recrutement-dashboard.vercel.app'];
 
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+    origin: '*',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+}
 
 require('dotenv').config()
 require('./passport/bearer')
