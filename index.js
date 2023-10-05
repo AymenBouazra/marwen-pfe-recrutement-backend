@@ -8,12 +8,25 @@ const app = express()
 const port = 4000
 const path = require('path');
 
+const allowedOrigins = ['https://marwen-pfe-recrutement-dashboard.vercel.app'];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 require('dotenv').config()
 require('./passport/bearer')
 require('./common/init_scripts/int_script')
 require('./database/connect')
-
-app.use(cors('*'));
+app.use(cors(corsOptions));
 app.use(morgan('dev'))
 app.use(express.urlencoded({ limit: '100mb', extended: false }))
 app.use(express.json({ limit: '100mb' }))
