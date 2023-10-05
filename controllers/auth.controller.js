@@ -32,9 +32,9 @@ exports.register = async (req, res) => {
                 to: "aymenbouazra994@gmail.com",
                 subject: "Account created ✔",
                 html: `
-        <b>Your account was created successfully, please verify your account</b>
-        <p>Verification code: <h2><strong>${code}</strong></h2></p>
-        `,
+                    <b>Your account was created successfully, please verify your account</b>
+                    <p>Verification code: <h2><strong>${code}</strong></h2></p>
+                `,
             });
             res.send({ message: 'You have been registered successfully!' });
         }
@@ -164,6 +164,7 @@ exports.forgetPassword = async (req, res) => {
 exports.resendCode = async (req, res) => {
     try {
         const { email } = req.body;
+        const user = await Auth.findOne({ email });
         const code = Math.floor(Math.random() * 903192)
         await Auth.findByIdAndUpdate(user._id, { confirmationCode: code }, { new: true });
         const transporter = createTransport({

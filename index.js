@@ -26,11 +26,17 @@ app.use(passport.session());
 
 const authapi = require('./routes/authApi');
 const userApi = require('./routes/userApi');
+const consultantApi = require('./routes/consultantApi');
 const candidatApi = require('./routes/candidatApi');
+const evaluateurApi = require('./routes/evaluateurApi');
+const questionApi = require('./routes/questionApi');
 
 app.use('/', authapi)
 app.use('/', userApi)
+app.use('/', consultantApi)
 app.use('/', candidatApi)
+app.use('/', evaluateurApi)
+app.use('/', questionApi)
 
 
 app.listen(port, () => {
