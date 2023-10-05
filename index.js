@@ -9,7 +9,7 @@ const port = 4000
 const path = require('path');
 
 const corsOptions = {
-    origin: '*',
+    origin: 'https://marwen-pfe-recrutement-dashboard.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
 
