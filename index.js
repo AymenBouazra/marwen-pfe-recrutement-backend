@@ -13,7 +13,7 @@ require('./passport/bearer')
 require('./common/init_scripts/int_script')
 require('./database/connect')
 
-app.use(cors());
+app.use(cors('*'));
 app.use(morgan('dev'))
 app.use(express.urlencoded({ limit: '100mb', extended: false }))
 app.use(express.json({ limit: '100mb' }))
