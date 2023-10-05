@@ -36,13 +36,16 @@ const evaluateurApi = require('./routes/evaluateurApi');
 const questionApi = require('./routes/questionApi');
 const formulaireApi = require('./routes/formulaireApi');
 
-app.use('/', authapi)
-app.use('/', userApi)
-app.use('/', consultantApi)
-app.use('/', candidatApi)
-app.use('/', evaluateurApi)
-app.use('/', questionApi)
-app.use('/', formulaireApi)
+app.get('/', (req, res) => {
+    res.send('Hello world')
+})
+app.use('/api', authapi)
+app.use('/api', userApi)
+app.use('/api', consultantApi)
+app.use('/api', candidatApi)
+app.use('/api', evaluateurApi)
+app.use('/api', questionApi)
+app.use('/api', formulaireApi)
 
 
 app.listen(port, () => {
