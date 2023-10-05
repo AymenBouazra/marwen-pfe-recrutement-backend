@@ -3,11 +3,12 @@ const mongoose = require('mongoose')
 const QuestionSchema = new mongoose.Schema(
     {
         questionTitle: String,
-        typeQuestion: String
+        questionType: String,
+        formulaireId: { type: mongoose.Schema.Types.ObjectId, ref: 'form' }
     },
     {
         timestamps: true, versionKey: false
     }
 )
 
-module.exports = mongoose.model('question', QuestionSchema, 'question')
+module.exports = mongoose.model('question', QuestionSchema)

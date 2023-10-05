@@ -30,6 +30,7 @@ const consultantApi = require('./routes/consultantApi');
 const candidatApi = require('./routes/candidatApi');
 const evaluateurApi = require('./routes/evaluateurApi');
 const questionApi = require('./routes/questionApi');
+const formulaireApi = require('./routes/formulaireApi');
 
 app.use('/', authapi)
 app.use('/', userApi)
@@ -37,6 +38,7 @@ app.use('/', consultantApi)
 app.use('/', candidatApi)
 app.use('/', evaluateurApi)
 app.use('/', questionApi)
+app.use('/', formulaireApi)
 
 
 app.listen(port, () => {

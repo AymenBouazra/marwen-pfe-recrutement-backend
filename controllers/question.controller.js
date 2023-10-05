@@ -1,7 +1,5 @@
 const Question = require('../models/question');
-const bcrypt = require('bcryptjs');
-const path = require('path');
-const fs = require('fs')
+const Form = require('../models/formulaire');
 exports.getAllQuestions = async (req, res) => {
     try {
         const Questions = await Question.find();
@@ -26,7 +24,8 @@ exports.createQuestion = async (req, res) => {
         if (questionExist) {
             res.status(400).json({ message: 'Question already exists!' })
         } else {
-            await Question.create(req.body);
+            const question = await Question.create(req.body);
+            await Form.findByIdAndUpdate(req.body.formulaireId, { $push: { questions: question._id } }, { new: true });
             res.json({ message: 'Question created successfully' })
         }
     } catch (error) {
