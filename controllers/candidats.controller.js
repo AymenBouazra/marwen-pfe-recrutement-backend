@@ -34,7 +34,7 @@ exports.addCandidatsFromJsonFile = async (req, res) => {
 
 exports.getAllCandidats = async (req, res) => {
     try {
-        const Candidats = await User.find({ role: 'Candidat' });
+        const Candidats = await User.find({ role: 'Candidat' }).populate('formulaire');
         res.json(Candidats)
     } catch (error) {
         res.status(500).json({ message: error.message || 'Server error!' })

@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
     diplome: String,
     experience: String,
     competence: String,
+    formulaire: { type: mongoose.Schema.Types.ObjectId, ref: 'form' },
     role: String,
     confirmationCode: String,
     confirmed: { type: Boolean, default: false },

@@ -8,23 +8,32 @@ const app = express()
 const port = 4000
 const path = require('path');
 
-const corsOptions = {
-    origin: 'https://marwen-pfe-recrutement-dashboard.vercel.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-};
+//*********** Developement */
+// const corsOptions = {
+//     origin: 'https://marwen-pfe-recrutement-dashboard.vercel.app',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+// };
 
+// require('dotenv').config()
+// require('./passport/bearer')
+// require('./common/init_scripts/int_script')
+// require('./database/connect')
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', 'https://marwen-pfe-recrutement-dashboard.vercel.app');
+//     res.setHeader('Access-Control-Allow-Credentials', 'true');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
+// app.use(cors(corsOptions));
+
+//************ Testing */
 require('dotenv').config()
 require('./passport/bearer')
 require('./common/init_scripts/int_script')
 require('./database/connect')
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://marwen-pfe-recrutement-dashboard.vercel.app');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
-app.use(cors(corsOptions));
+app.use(cors())
+
 app.use(morgan('dev'))
 app.use(express.urlencoded({ limit: '100mb', extended: false }))
 app.use(express.json({ limit: '100mb' }))
@@ -42,6 +51,7 @@ const candidatApi = require('./routes/candidatApi');
 const evaluateurApi = require('./routes/evaluateurApi');
 const questionApi = require('./routes/questionApi');
 const formulaireApi = require('./routes/formulaireApi');
+const reponseApi = require('./routes/reponseApi');
 
 app.get('/', (req, res) => {
     res.send('Hello world')
@@ -53,6 +63,7 @@ app.use('/api', candidatApi)
 app.use('/api', evaluateurApi)
 app.use('/api', questionApi)
 app.use('/api', formulaireApi)
+app.use('/api', reponseApi)
 
 
 app.listen(port, () => {

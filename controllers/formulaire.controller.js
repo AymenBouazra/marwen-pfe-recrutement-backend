@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const Form = require('../models/formulaire');
 exports.getAllForms = async (req, res) => {
     try {
@@ -45,6 +46,16 @@ exports.deleteFormById = async (req, res) => {
     try {
         await Form.findByIdAndDelete(req.params.id);
         res.json({ message: 'Form deleted successfully' })
+    } catch (error) {
+        res.status(500).json({ message: error.message || 'Server error!' })
+    }
+}
+
+
+exports.affectationFormulaireCandidat = async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.params.idUser, { $push: { formulaire: req.params.idFormulaire } }, { new: true });
+        res.json({ message: 'Form affected to candidat' })
     } catch (error) {
         res.status(500).json({ message: error.message || 'Server error!' })
     }
