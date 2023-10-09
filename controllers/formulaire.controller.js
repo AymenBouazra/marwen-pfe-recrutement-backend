@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const Form = require('../models/formulaire');
 const { createTransport } = require('nodemailer');
+const DASHBOARD_URL_DEV = 'https://marwen-pfe-recrutement-dashboard.vercel.app'
+const DASHBOARD_URL_LOCAL = 'https://marwen-pfe-recrutement-dashboard.vercel.app'
 exports.getAllForms = async (req, res) => {
     try {
         const Forms = await Form.find().populate('questions');
@@ -71,7 +73,7 @@ exports.affectationFormulaireCandidat = async (req, res) => {
             subject: "Test technique",
             html: ` 
                 <b>Vous êtes affecter pour faire un test technique:</b>
-                <p><a href="http://localhost:3000/profile">Cliquer ici</a> pour passer le test technique.</p>
+                <p><a href="${DASHBOARD_URL_DEV}">Cliquer ici</a> pour passer le test technique.</p>
                 <br>
             `,
         });
