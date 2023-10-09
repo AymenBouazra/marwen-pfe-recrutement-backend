@@ -1,3 +1,4 @@
+const Formulaire = require('../models/formulaire');
 const User = require('../models/user');
 const { createTransport } = require('nodemailer');
 
@@ -13,7 +14,7 @@ exports.addCandidatsFromJsonFile = async (req, res) => {
             });
 
             await transporter.sendMail({
-                from: `"Aymen Boauzra" ${process.env.EMAIL}`,
+                from: `<Marwen Bougossa> ${process.env.EMAIL}`,
                 to: candidat.email,
                 subject: "Account created ✔",
                 html: ` 
@@ -34,8 +35,23 @@ exports.addCandidatsFromJsonFile = async (req, res) => {
 
 exports.getAllCandidats = async (req, res) => {
     try {
-        const Candidats = await User.find({ role: 'Candidat' }).populate('formulaire');
+        const Candidats = await User.find({ role: 'Candidat' }).populate('formulaire').populate('reponse');
         res.json(Candidats)
+    } catch (error) {
+        res.status(500).json({ message: error.message || 'Server error!' })
+    }
+}
+
+exports.getFormOfCandidat = async (req, res) => {
+    try {
+        const Candidat = await User.findById(req.params.id);
+        if (Candidat) {
+            const form = await Formulaire.findById(Candidat.formulaire).populate('questions')
+            res.json(form);
+        }
+        else {
+            res.status(404).json("No such Candidat");
+        }
     } catch (error) {
         res.status(500).json({ message: error.message || 'Server error!' })
     }

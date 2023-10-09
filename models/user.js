@@ -12,7 +12,10 @@ const UserSchema = new mongoose.Schema({
     experience: String,
     competence: String,
     formulaire: { type: mongoose.Schema.Types.ObjectId, ref: 'form' },
+    testPassed: Boolean,
+    reponse: { type: mongoose.Schema.Types.ObjectId, ref: 'reponse' },
     role: String,
+    note: Number,
     confirmationCode: String,
     confirmed: { type: Boolean, default: false },
     noPassword: Boolean

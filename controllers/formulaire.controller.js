@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Form = require('../models/formulaire');
+const { createTransport } = require('nodemailer');
 exports.getAllForms = async (req, res) => {
     try {
         const Forms = await Form.find().populate('questions');
@@ -54,7 +55,26 @@ exports.deleteFormById = async (req, res) => {
 
 exports.affectationFormulaireCandidat = async (req, res) => {
     try {
-        await User.findByIdAndUpdate(req.params.idUser, { $push: { formulaire: req.params.idFormulaire } }, { new: true });
+        await User.findByIdAndUpdate(req.params.idUser, { formulaire: req.params.idFormulaire, testPassed: false }, { new: true });
+        const user = await User.findById(req.params.idUser)
+        const transporter = createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
+            }
+        });
+
+        await transporter.sendMail({
+            from: `<Marwen Bougossa> ${process.env.EMAIL}`,
+            to: user.email,
+            subject: "Test technique",
+            html: ` 
+                <b>Vous êtes affecter pour faire un test technique:</b>
+                <p><a href="http://localhost:3000/profile">Cliquer ici</a> pour passer le test technique.</p>
+                <br>
+            `,
+        });
         res.json({ message: 'Form affected to candidat' })
     } catch (error) {
         res.status(500).json({ message: error.message || 'Server error!' })

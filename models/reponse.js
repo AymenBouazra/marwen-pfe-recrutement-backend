@@ -4,6 +4,8 @@ const ReponseSchema = new mongoose.Schema(
     {
         candidatId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         formulaireId: { type: mongoose.Schema.Types.ObjectId, ref: 'form' },
+        videos: [],
+        videoPaths: [],
         reponses: []
     },
     {

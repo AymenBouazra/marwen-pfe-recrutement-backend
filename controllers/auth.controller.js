@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
                 }
             });
             await transporter.sendMail({
-                from: '"Aymen Boauzra" <aymenbouazra994@gmail.com>',
+                from: '<Marwen Bougossa> <aymenbouazra994@gmail.com>',
                 to: "aymenbouazra994@gmail.com",
                 subject: "Account created ✔",
                 html: `
@@ -108,7 +108,7 @@ exports.confirmAccount = async (req, res) => {
             });
 
             await transporter.sendMail({
-                from: '"Aymen Boauzra" <aymenbouazra994@gmail.com>',
+                from: '<Marwen Bougossa> <aymenbouazra994@gmail.com>',
                 to: email,
                 subject: "Account confirmed ✔",
                 html: `
@@ -143,7 +143,7 @@ exports.forgetPassword = async (req, res) => {
             });
 
             await transporter.sendMail({
-                from: `"Aymen Boauzra" ${process.env.EMAIL}`,
+                from: `<Marwen Bougossa> ${process.env.EMAIL}`,
                 to: email,
                 subject: "Account confirmation ✔",
                 html: ` 
@@ -176,7 +176,7 @@ exports.resendCode = async (req, res) => {
         });
 
         await transporter.sendMail({
-            from: '"Aymen Boauzra" <aymenbouazra994@gmail.com>',
+            from: '<Marwen Bougossa> <aymenbouazra994@gmail.com>',
             to: email,
             subject: "Account confirmation ✔",
             html: ` 
@@ -208,7 +208,7 @@ exports.resetPassword = async (req, res) => {
                 });
 
                 await transporter.sendMail({
-                    from: `"Aymen Boauzra" ${process.env.EMAIL}`,
+                    from: `<Marwen Bougossa> ${process.env.EMAIL}`,
                     to: user.email,
                     subject: "Account confirmation ✔",
                     html: ` 

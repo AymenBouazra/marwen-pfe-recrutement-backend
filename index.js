@@ -52,6 +52,7 @@ const evaluateurApi = require('./routes/evaluateurApi');
 const questionApi = require('./routes/questionApi');
 const formulaireApi = require('./routes/formulaireApi');
 const reponseApi = require('./routes/reponseApi');
+const evaluationApi = require('./routes/evaluationApi');
 
 app.get('/', (req, res) => {
     res.send('Hello world')
@@ -64,6 +65,7 @@ app.use('/api', evaluateurApi)
 app.use('/api', questionApi)
 app.use('/api', formulaireApi)
 app.use('/api', reponseApi)
+app.use('/api', evaluationApi)
 
 
 app.listen(port, () => {

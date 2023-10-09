@@ -29,10 +29,10 @@ function fileFilter(req, file, cb) {
 }
 
 // inside multer({}), file upto only 1MB can be uploaded
-const uploadImage = multer({
+const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: { fileSize: 100000000000 }
 });
 
-module.exports = uploadImage;
+module.exports = upload;
