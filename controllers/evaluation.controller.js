@@ -1,3 +1,4 @@
+const { createTransport } = require('nodemailer');
 const Evaluation = require('../models/evaluation');
 const User = require('../models/user');
 
@@ -39,7 +40,6 @@ exports.refuserCandidat = async (req, res) => {
     try {
         const evaluation = await Evaluation.findById(req.params.id)
         const candidat = await User.findById(evaluation.candidatId)
-        await Evaluation.findByIdAndUpdate(req.params.id, { statut: false }, { new: true })
         const transporter = createTransport({
             service: "gmail",
             auth: {
@@ -54,11 +54,12 @@ exports.refuserCandidat = async (req, res) => {
             subject: "Refusé!",
             html: ` 
                 <p>
-                <b>Bonjour ${candidat.nom.toUpperCase()} ${candidat.prenom}</b>
+                <b>Bonjour ${candidat.nom.toUpperCase()} ${candidat.prenom}</b>,<br>
                 Merci pour votre temps et votre intérêt pour notre Société. À l’heure actuelle, nous avons décidé de rechercher d’autres candidats qui correspondent davantage à nos exigences, mais nous tenons à vous remercier de nous donner l’opportunité d’examiner votre candidature.
                 </p>
             `,
         });
+        await Evaluation.findByIdAndUpdate(req.params.id, { statut: false }, { new: true })
         res.json({ message: 'Candidat refusé et e-mail de confirmation envoyé!' })
     }
     catch (error) {
@@ -71,7 +72,6 @@ exports.accepterCandidat = async (req, res) => {
     try {
         const evaluation = await Evaluation.findById(req.params.id)
         const candidat = await User.findById(evaluation.candidatId)
-        await Evaluation.findByIdAndUpdate(req.params.id, { statut: true }, { new: true })
         const transporter = createTransport({
             service: "gmail",
             auth: {
@@ -86,11 +86,12 @@ exports.accepterCandidat = async (req, res) => {
             subject: "Accepté!",
             html: ` 
                 <p>
-                <b>Bonjour ${candidat.nom.toUpperCase()} ${candidat.prenom}</b>
+                <b>Bonjour ${candidat.nom.toUpperCase()} ${candidat.prenom}</b>,<br>
                 Merci pour votre temps et votre intérêt pour notre Société. À l’heure actuelle, nous avons décidé d'accepter votre candidature.
                 </p>
             `,
         });
+        await Evaluation.findByIdAndUpdate(req.params.id, { statut: true }, { new: true })
         res.json({ message: 'Candidat accepté et e-mail de confirmation envoyé!' })
     }
     catch (error) {
