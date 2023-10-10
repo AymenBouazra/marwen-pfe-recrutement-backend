@@ -92,6 +92,7 @@ exports.accepterCandidat = async (req, res) => {
             `,
         });
         await Evaluation.findByIdAndUpdate(req.params.id, { statut: true }, { new: true })
+        await User.findByIdAndUpdate(candidat._id, { evaluation: true }, { new: true })
         res.json({ message: 'Candidat accepté et e-mail de confirmation envoyé!' })
     }
     catch (error) {

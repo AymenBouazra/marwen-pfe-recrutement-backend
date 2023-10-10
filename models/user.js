@@ -19,7 +19,8 @@ const UserSchema = new mongoose.Schema({
     note: Number,
     confirmationCode: String,
     confirmed: { type: Boolean, default: false },
-    noPassword: Boolean
+    noPassword: Boolean,
+    statut: String
 },
     {
         timestamps: true, versionKey: false
