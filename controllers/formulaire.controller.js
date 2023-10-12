@@ -73,7 +73,7 @@ exports.affectationFormulaireCandidat = async (req, res) => {
             subject: "Test technique",
             html: ` 
                 <b>Vous êtes affecter pour faire un test technique:</b>
-                <p><a href="${DASHBOARD_URL_DEV}">Cliquer ici</a> pour passer le test technique.</p>
+                <p><a href="${process.env.HOST}/notifications">Cliquer ici</a> pour passer le test technique.</p>
                 <br>
             `,
         });

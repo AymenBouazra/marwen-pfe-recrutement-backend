@@ -60,6 +60,7 @@ exports.refuserCandidat = async (req, res) => {
             `,
         });
         await Evaluation.findByIdAndUpdate(req.params.id, { statut: false }, { new: true })
+        await User.findByIdAndUpdate(candidat._id, { statut: 'Refused' }, { new: true })
         res.json({ message: 'Candidat refusé et e-mail de confirmation envoyé!' })
     }
     catch (error) {
@@ -92,7 +93,7 @@ exports.accepterCandidat = async (req, res) => {
             `,
         });
         await Evaluation.findByIdAndUpdate(req.params.id, { statut: true }, { new: true })
-        await User.findByIdAndUpdate(candidat._id, { evaluation: true }, { new: true })
+        await User.findByIdAndUpdate(candidat._id, { statut: 'Accepted' }, { new: true })
         res.json({ message: 'Candidat accepté et e-mail de confirmation envoyé!' })
     }
     catch (error) {
