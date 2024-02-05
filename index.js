@@ -12,6 +12,8 @@ const path = require('path');
 const corsOptions = {
     origin: 'https://marwen-pfe-recrutement-dashboard.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
 };
 
 require('dotenv').config()
