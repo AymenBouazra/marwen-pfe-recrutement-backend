@@ -27,7 +27,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
-app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+// app.use(cors(corsOptions));
 
 //************ Testing */
 // require('dotenv').config()
