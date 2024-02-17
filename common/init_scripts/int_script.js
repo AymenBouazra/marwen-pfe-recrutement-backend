@@ -5,7 +5,7 @@ User.countDocuments().then(async (usersCount) => {
             {
                 nom: "Bougossa",
                 prenom: "Marwen",
-                email: "marwen@gmail.com",
+                email: "admin@gmail.com",
                 password: "$2a$10$MDIRedaQqMwEzx78OdnOR.8ve5/W42.qDXm/GgQYkTsYfeioKmBkG",
                 role: 'Administrateur',
                 confirmed: true
